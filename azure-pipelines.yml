@@ -40,3 +40,19 @@ steps:
         rustc -Vv
         cargo -V
     displayName: Query rust and cargo versions
+
+
+  # Linux and macOS.
+  - script: |
+      set -e
+      rustup toolchain add nightly
+      rustup default nightly
+    displayName: add nightly toolchain for (*nix)
+    condition: not(eq(variables['Agent.OS'], 'Windows_NT'))
+
+  - script: |
+        rustup -V
+        rustup component list --installed
+        rustc -Vv
+        cargo -V
+    displayName: Query rust and cargo versions after add toolchain
